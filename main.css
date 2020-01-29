@@ -93,3 +93,7 @@ div.case-food{
 div.case-empty{
     background-color: rgb(235, 235, 235);
 }
+
+span{
+    position: absolute;
+}

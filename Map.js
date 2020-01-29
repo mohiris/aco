@@ -30,6 +30,7 @@ class Map{
         this.el = el;
 
         this.initCases();
+        this.anthill = new Anthill(this, this.cases[0][0]);
         this.render();
     }
 
@@ -52,7 +53,7 @@ class Map{
                 if (c.y === 0) {
                     this.createCase('obstacle')
                 }
-                this.createCase(c.type.toLowerCase())
+                this.createCase(c.type.toLowerCase(), `${c.x}${c.y}`)
 
                 if (c.y === this.height -1) {
                     this.createCase('obstacle')
@@ -70,11 +71,13 @@ class Map{
     
                     }
                 }
-
-    
             }); 
         });
 
+    }
+
+    decrementFoodLeft() {
+        this.foodLeft -= 1;
     }
 
     initCases(){
@@ -106,9 +109,19 @@ class Map{
         this.cases[random][Math.floor(Math.random() * this.cases[random].length)].type = CASE_TYPE.food;
     }
 
-    createCase(type) {
+    createCase(type, id) {
         var div = document.createElement('div');
-        div.className = `case-${type}`
+        div.className = `case-${type}`;
+
+        if (id) {
+            div.id = `case-${id}`;
+
+            const cell = this.cases[id[0]][id[1]];
+
+            if (cell) {
+                cell.setEntity(div);
+            }
+        }
         this.el.append(div);
     }
 
@@ -121,21 +134,4 @@ class Map{
             var random = Math.floor(Math.random() * this.cases.length - Math.floor(this.cases.length / 2)); 
         }
     }*/
-}
-
-const CASE_TYPE = {
-    food: 'FOOD',
-    obstacle : 'OBSTACLE',
-    empty: 'EMPTY',
-    spawn: 'SPAWN'
-}
-
-class Case {
-
-    constructor(x,y,caseType = CASE_TYPE.empty){
-        this.type = caseType;
-        this.x = x;
-        this.y = y;
-    }
-
 }

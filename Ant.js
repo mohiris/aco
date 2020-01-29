@@ -1,14 +1,14 @@
-stateType = {
+const STATE_TYPE = {
     empty: 'EMPTY',
     full: 'FULL'
 }
 
 class Ant {
-    constructor(map) {
+    constructor(map, cell) {
         this.map = map;
-        this.state = stateType.empty;
-        this.case = { x: 0, y: 0 };
+        this.state = STATE_TYPE.empty;
         this.pheromone = 0;
+        this.case = cell
     }
 
     /**
@@ -22,8 +22,8 @@ class Ant {
      * 
      * @param {*} position 
      */
-    setCase(position) {
-        this.case = position;
+    setCase(cell) {
+        this.case = cell;
     }
 
     /**
@@ -61,8 +61,8 @@ class Ant {
      */
     pickFood() {
         if (this.map.foodLeft > 0 && !this.isFull()) {
-            this.state = this.stateType.full;
-            this.map.foodLeft -=1;
+            this.state = this.STATE_TYPE.full;
+            this.map.decrementFoodLeft();
         }
     }
 
@@ -70,8 +70,7 @@ class Ant {
      * 
      */
     isFull() {
-        return this.state === this.stateType.full; 
+        return this.state === this.STATE_TYPE.full; 
     }
-
 
 }
