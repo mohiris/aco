@@ -37,7 +37,8 @@ div#main{
 div.options {
     width: 35%;
     background-color: rgba(102,51,153,0.5);
-    padding: 12px;
+    padding: 8px;
+    margin-bottom: 30px;
 }
 
 
