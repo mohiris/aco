@@ -66,7 +66,8 @@ div.options > ul li > p {
 }
 
 div#map{
-    width: 75%;
+    position: relative;
+    min-width: 75%;
     margin: 0 auto;
     display: inline-block;
 }
@@ -93,4 +94,16 @@ div.case-food{
 
 div.case-empty{
     background-color: rgb(235, 235, 235);
+}
+
+span{
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(0, 140, 255);
+}
+
+.plot {
+    /* visibility: hidden; */
+    background-color: rgb(53, 46, 11);
 }

@@ -30,7 +30,15 @@ class Map{
         this.el = el;
 
         this.initCases();
+        this.anthill = new Anthill(this, this.cases[0][0]);
         this.render();
+    }
+
+    /**
+     * 
+     */
+    getCases() {
+        return this.cases;
     }
 
     render() {
@@ -52,7 +60,7 @@ class Map{
                 if (c.y === 0) {
                     this.createCase('obstacle')
                 }
-                this.createCase(c.type.toLowerCase())
+                this.createCase(c.type.toLowerCase(), `${c.x}${c.y}`)
 
                 if (c.y === this.height -1) {
                     this.createCase('obstacle')
@@ -70,11 +78,12 @@ class Map{
     
                     }
                 }
-
-    
             }); 
         });
+    }
 
+    decrementFoodLeft() {
+        this.foodLeft -= 1;
     }
 
     initCases(){
@@ -106,10 +115,30 @@ class Map{
         this.cases[random][Math.floor(Math.random() * this.cases[random].length)].type = CASE_TYPE.food;
     }
 
-    createCase(type) {
+    createCase(type, id) {
         var div = document.createElement('div');
-        div.className = `case-${type}`
+        div.className = `case-${type}`;
+
+        if (id) {
+            div.id = `case-${id}`;
+
+            const cell = this.cases[id[0]][id[1]];
+
+            if (cell) {
+                cell.setEntity(div);
+
+                if (type === 'empty' || type === 'obstacle') {
+                    const span = document.createElement('span');
+                    span.className = 'plot';
+                    span.id = `plot-${id}`
+                    cell.setPlot(span);
+                    div.appendChild(span)
+                }
+            }
+        }
         this.el.append(div);
+
+        if (id && $(`#plot-${id}`).offset()) $(`#plot-${id}`).offset({top:$(`#plot-${id}`).offset().top +15, left: $(`#plot-${id}`).offset().left + 15 })
     }
 
     caseRandom(x,y,types){
@@ -121,21 +150,4 @@ class Map{
             var random = Math.floor(Math.random() * this.cases.length - Math.floor(this.cases.length / 2)); 
         }
     }*/
-}
-
-const CASE_TYPE = {
-    food: 'FOOD',
-    obstacle : 'OBSTACLE',
-    empty: 'EMPTY',
-    spawn: 'SPAWN'
-}
-
-class Case {
-
-    constructor(x,y,caseType = CASE_TYPE.empty){
-        this.type = caseType;
-        this.x = x;
-        this.y = y;
-    }
-
 }
