@@ -105,7 +105,7 @@ class Ant {
      * 
      */
     pickFood() {
-        if (this.map.foodLeft > 0 && !this.isFull()) {
+        if(this.map.foodLeft > 0 && !this.isFull()) {
             this.state = this.STATE_TYPE.full;
             this.map.decrementFoodLeft();
         }
@@ -192,15 +192,13 @@ class Ant {
     moveToThisCase(theCase) {
         this.case = theCase;
 
-        if (this.state === STATE_TYPE.empty) {
-            this.memoCase.push(theCase);
+        switch(this.state){
+            case STATE_TYPE.empty:  this.memoCase.push(theCase);
+            break;
+            case CASE_TYPE.food: this.state = STATE_TYPE.full;
+            this.entity.style.backgroundColor = 'red';
+            break;
         }
-
-        console.log(theCase.type, CASE_TYPE.food)
-        
-        // if(theCase.type === CASE_TYPE.food) {
-        //     this.state = STATE_TYPE.full;
-        // }
 
         return $(this.entity).animate(
             {
@@ -216,8 +214,7 @@ class Ant {
     moveRandPossible() {
         const possibilities = this.getMovePossibility();
 
-        console.log(possibilities)
-
+        //console.log("wesh", possibilities)
         if (possibilities.length >= 0) {
             return this.moveToThisCase(
                 possibilities[Math.floor(Math.random() * possibilities.length)]
