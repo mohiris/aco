@@ -8,6 +8,7 @@ html, body{
 }
 
 header {
+    display: flex;
     margin: 0 auto;
     height: 85px;
     width: 75%;
@@ -15,16 +16,24 @@ header {
     background-color: rebeccapurple;
 }
 
-header > h1 {
+header  h1 {
 text-align: center;
 color: #fff;
-padding: 20px;
 height: 85px;
+}
+
+div.logo{
+    height: 85px;
+    width: 85px;
+    background-image: url("antlogo.png");
+    background-size: cover;
+    background-position: center;
 }
 
 p.authors {
     color: #a3a3a3;
     text-align: center;
+    height: 85px;
 }
 
 div#main{
@@ -107,3 +116,22 @@ span{
     /* visibility: hidden; */
     background-color: rgb(53, 46, 11);
 }
+button#reload:focus{
+    outline: 0;
+}
+
+button#reload:hover{
+    cursor: pointer;
+}
+
+button#reload{
+    border: none;
+    padding: 8px;
+    color: #fff;
+    background-color: rebeccapurple;
+    font-weight: bolder;
+    border-radius: 4px;
+}
+
+
+
