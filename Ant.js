@@ -12,6 +12,22 @@ class Ant {
         this.case = cell;
         this.entity = null;
         this.speed = speed;
+        this.memoCase = [];
+    }
+
+    /**
+     * 
+     */
+    isInMemo(id) {
+        let result = false;
+
+        this.memoCase.forEach(theCase => {
+            if (theCase.entity.id === id) {
+                result = true;
+            }
+        });
+
+        return result;
     }
 
     /**
@@ -98,8 +114,12 @@ class Ant {
     addPossibility(array, x, y) {
         const cases = this.map.getCases();
 
-        if (cases[x] && cases[x][y] && cases[x][y].type !== CASE_TYPE.obstacle) {
-            array.push(cases[x][y])
+        if (cases[x]
+            && cases[x][y]
+            && cases[x][y].type !== CASE_TYPE.obstacle
+            // && !this.isInMemo(cases[x][y].entity.id)
+        ) {
+            array.push(cases[x][y]);
         }
     }
 
@@ -163,6 +183,11 @@ class Ant {
      */
     moveToThisCase(theCase) {
         this.case = theCase;
+
+        if (this.state === CASE_TYPE.empty) {
+            this.memoCase.push(theCase);
+        }
+
         return $(this.entity).animate(
             {
                 top: theCase.getPlot().offsetTop,
