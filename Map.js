@@ -80,8 +80,6 @@ class Map{
                 }
             }); 
         });
-
-        console.log('les cases', this.cases)
     }
 
     decrementFoodLeft() {
