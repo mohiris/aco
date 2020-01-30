@@ -34,6 +34,13 @@ class Map{
         this.render();
     }
 
+    /**
+     * 
+     */
+    getCases() {
+        return this.cases;
+    }
+
     render() {
         this.cases.forEach((line, key) => {
             line.forEach(c => {
@@ -73,7 +80,6 @@ class Map{
                 }
             }); 
         });
-
     }
 
     decrementFoodLeft() {
@@ -120,9 +126,19 @@ class Map{
 
             if (cell) {
                 cell.setEntity(div);
+
+                if (type === 'empty' || type === 'obstacle') {
+                    const span = document.createElement('span');
+                    span.className = 'plot';
+                    span.id = `plot-${id}`
+                    cell.setPlot(span);
+                    div.appendChild(span)
+                }
             }
         }
         this.el.append(div);
+
+        if (id && $(`#plot-${id}`).offset()) $(`#plot-${id}`).offset({top:$(`#plot-${id}`).offset().top +15, left: $(`#plot-${id}`).offset().left + 15 })
     }
 
     caseRandom(x,y,types){

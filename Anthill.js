@@ -10,14 +10,13 @@ class Anthill {
 
     initAnts(numbers) {
         for (let i = 0; i <= numbers; i++) {
-            this.ants.push(new Ant(this.map, this.case))
+            this.ants.push(new Ant(this.map, this.case, Math.floor(Math.random() * 7) + 3))
         }
     }
 
     createAnt(ant) {
         let span = document.createElement('span');
         span.className = 'ant';
-        span.innerHTML='f';
 
         if (ant.state === 'FULL') {
             span.className += ' full';
@@ -26,13 +25,17 @@ class Anthill {
     }
 
     spawner() {
-        var myVar = setInterval(() => {
-            const ant = this.ants.splice(0, 1);
-            this.case.getEntity().appendChild(this.createAnt(ant));
-            
+        var rand = Math.round(Math.random() * 700) + 300;
+        let myVar = setInterval(() => {
+            const ant = this.ants.splice(0, 1)[0];
+            ant.setEntity(this.createAnt(ant));
+            this.case.getEntity().appendChild(ant.getEntity());
+            ant.collect();
+
             if (this.ants.length <= 0) {
                 clearInterval(myVar);
             }
-        }, 1000);
-    }
+            loop();
+        }, rand);
+    };
 }

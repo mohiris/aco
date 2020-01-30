@@ -12,6 +12,7 @@ class Case {
         this.x = x;
         this.y = y;
         this.entity = null;
+        this.plot = undefined;
     }
 
     setEntity(entity) {
@@ -21,5 +22,14 @@ class Case {
     getEntity() {
         return this.entity;
     }
+
+    setPlot(plot) {
+        this.plot = plot;
+    }
+
+    getPlot() {
+        return this.plot;
+    }
+
 
 }
