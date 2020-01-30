@@ -83,12 +83,16 @@ div.case-spawn{
 }
 
 div.case-obstacle{
-    background-color: rgb(46, 46, 46);
+    content: url("brick.jpg");
+    width: 40px;
+    height: 40px;
 }
 
 
 div.case-food{
-    background-color: brown;
+    content: url("food.jpg");
+    width: 40px;
+    height: 40px;
 }
 
 div.case-empty{
