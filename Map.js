@@ -111,8 +111,9 @@ class Map{
             }
         }
 
-        const random = Math.floor(Math.random() * this.cases.length);
-        this.cases[random][Math.floor(Math.random() * this.cases[random].length)].type = CASE_TYPE.food;
+        const x = Math.floor(Math.random() * this.cases.length);
+        const y = Math.floor(Math.random() * this.cases[x].length);
+        this.cases[x][y].type = CASE_TYPE.food;
     }
 
     createCase(type, id) {
@@ -127,7 +128,7 @@ class Map{
             if (cell) {
                 cell.setEntity(div);
 
-                if (type === 'empty' || type === 'obstacle') {
+                if (type === 'empty' || type === 'food') {
                     const span = document.createElement('span');
                     span.className = 'plot';
                     span.id = `plot-${id}`
