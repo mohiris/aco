@@ -38,6 +38,12 @@ class Ant {
             this.moveRandPossible();
             this.collect();
         }
+        else if(this.state === STATE_TYPE.full) {
+            console.log('passe la')
+            this.memoCase.reverse().forEach(theCase => {
+                this.moveToThisCase(theCase)
+            });
+        }
     }
 
     getEntity() {
@@ -184,8 +190,11 @@ class Ant {
     moveToThisCase(theCase) {
         this.case = theCase;
 
-        if (this.state === CASE_TYPE.empty) {
+        if (this.state === STATE_TYPE.empty) {
             this.memoCase.push(theCase);
+        }
+        else if(theCase.type === CASE_TYPE.food) {
+            this.state = STATE_TYPE.full;
         }
 
         return $(this.entity).animate(

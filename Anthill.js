@@ -35,7 +35,6 @@ class Anthill {
             if (this.ants.length <= 0) {
                 clearInterval(myVar);
             }
-            loop();
         }, rand);
     };
 }
