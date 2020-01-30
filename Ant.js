@@ -35,8 +35,16 @@ class Ant {
      */
     collect() {
         if (this.state === STATE_TYPE.empty) {
-            this.moveRandPossible();
-            this.collect();
+            setTimeout(() => {
+                this.moveRandPossible();
+                this.collect();
+              },0)
+        }
+        else if(this.state === STATE_TYPE.full) {
+            this.memoCase.reverse().forEach(theCase => {
+                this.moveToThisCase(theCase)
+            });
+            return;
         }
     }
 
@@ -184,9 +192,15 @@ class Ant {
     moveToThisCase(theCase) {
         this.case = theCase;
 
-        if (this.state === CASE_TYPE.empty) {
+        if (this.state === STATE_TYPE.empty) {
             this.memoCase.push(theCase);
         }
+
+        console.log(theCase.type, CASE_TYPE.food)
+        
+        // if(theCase.type === CASE_TYPE.food) {
+        //     this.state = STATE_TYPE.full;
+        // }
 
         return $(this.entity).animate(
             {
@@ -201,6 +215,8 @@ class Ant {
      */
     moveRandPossible() {
         const possibilities = this.getMovePossibility();
+
+        console.log(possibilities)
 
         if (possibilities.length >= 0) {
             return this.moveToThisCase(
