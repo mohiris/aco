@@ -4,8 +4,11 @@ $(document).ready(function(){
     var width;
     var el = $("#map");
 
-    $('#start').click(function(){
+    var mapFood = $('#map-food');
 
+    new Map(10, 10, el, mapFood);
+
+    $('#start').click(function(){
         height = $("#mHeight").val();
         width = $("#mWidth").val();
 
@@ -37,12 +40,13 @@ $(document).ready(function(){
 
 class Map{
 
-    constructor(height, width, el){
+    constructor(height, width, el, mapFood){
         this.height = height;
         this.width = width;
         this.foodLeft = 100;
         this.cases = [];
         this.el = el;
+        this.mapFood = mapFood;
 
         this.initCases();
         this.anthill = new Anthill(this, this.cases[0][0]);
@@ -54,6 +58,13 @@ class Map{
      */
     getCases() {
         return this.cases;
+    }
+
+    /**
+     * 
+     */
+    getAnthill() {
+        return this.anthill;
     }
 
     render() {
@@ -95,10 +106,13 @@ class Map{
                 }
             }); 
         });
+
+        this.mapFood.text(this.foodLeft);
     }
 
     decrementFoodLeft() {
         this.foodLeft -= 1;
+        this.mapFood.text(this.foodLeft);
     }
 
     initCases(){
@@ -143,7 +157,7 @@ class Map{
             if (cell) {
                 cell.setEntity(div);
 
-                if (type === 'empty' || type === 'food') {
+                if (type !== 'obstacle') {
                     const span = document.createElement('span');
                     span.className = 'plot';
                     span.id = `plot-${id}`

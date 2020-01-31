@@ -13,6 +13,7 @@ class Ant {
         this.entity = null;
         this.speed = speed;
         this.memoCase = [];
+        this.turn = 0;
     }
 
     /**
@@ -34,17 +35,28 @@ class Ant {
      * 
      */
     collect() {
-        if (this.state === STATE_TYPE.empty) {
-            setTimeout(() => {
-                this.moveRandPossible();
-                this.collect();
-              },0)
-        }
-        else if(this.state === STATE_TYPE.full) {
-            this.memoCase.reverse().forEach(theCase => {
-                this.moveToThisCase(theCase)
-            });
-            return;
+        switch (this.state) {
+            case STATE_TYPE.empty:
+                setTimeout(() => {
+                    this.moveRandPossible();
+                    this.collect();
+                }, this.speed * 100);
+                break;
+
+            case STATE_TYPE.full:
+                this.memoCase.reverse().forEach((theCase, key) => {
+                    setTimeout(() => {
+                        this.moveToThisCase(theCase);
+                        theCase.setPheromones(theCase.getPheromones() + 1);
+
+                        if (key ===  this.memoCase.reverse().length - 1) {
+                            this.deliverFood();
+                        }
+                    }, (this.speed * 100) * key);
+                });
+                break;
+
+            default: return;
         }
     }
 
@@ -105,9 +117,24 @@ class Ant {
      * 
      */
     pickFood() {
-        if(this.map.foodLeft > 0 && !this.isFull()) {
-            this.state = this.STATE_TYPE.full;
+        if (this.map.foodLeft > 0 && !this.isFull()) {
+            this.entity.style.backgroundColor = 'red';
+            this.state = STATE_TYPE.full;
             this.map.decrementFoodLeft();
+            this.turn++;
+        }
+    }
+
+    /**
+     * 
+     */
+    deliverFood() {
+        if (this.isFull()) {
+            const anthill = this.map.getAnthill();
+            this.entity.style.backgroundColor = 'blue';
+            this.state = STATE_TYPE.empty;
+            anthill.addFood();
+            this.collect();
         }
     }
 
@@ -115,7 +142,7 @@ class Ant {
      * 
      */
     isFull() {
-        return this.state === this.STATE_TYPE.full; 
+        return this.state === STATE_TYPE.full;
     }
 
     /** */
@@ -192,12 +219,12 @@ class Ant {
     moveToThisCase(theCase) {
         this.case = theCase;
 
-        switch(this.state){
-            case STATE_TYPE.empty:  this.memoCase.push(theCase);
-            break;
-            case CASE_TYPE.food: this.state = STATE_TYPE.full;
-            this.entity.style.backgroundColor = 'red';
-            break;
+        if (this.state === STATE_TYPE.empty) {
+            this.memoCase.push(theCase);
+        }
+
+        if (theCase.type === CASE_TYPE.food) {
+            this.pickFood();
         }
 
         return $(this.entity).animate(
