@@ -37,13 +37,12 @@ class Ant {
     collect() {
         switch (this.state) {
             case STATE_TYPE.empty:
-                if (this.turn === 0) {
+                if (this.turn === 0 || this.map.foodLeft <= 0) {
                     setTimeout(() => {
                         this.moveRandPossible();
                         this.collect();
                     }, this.speed * 100);
                 } else {
-                    console.log(this.memoCase)
                     this.memoCase.forEach((theCase, key) => {
                         setTimeout(() => {
                             this.moveToThisCase(theCase);
@@ -60,7 +59,6 @@ class Ant {
 
             case STATE_TYPE.full:
                 const test = [...this.memoCase];
-                console.log(test)
                 test.reverse().forEach((theCase, key) => {
                     setTimeout(() => {
                         this.moveToThisCase(theCase);
@@ -158,7 +156,7 @@ class Ant {
             }
 
             if (this.turn === 2) {
-                color = 'green';
+                color = 'yellow';
                 this.collect();
             }
 
@@ -275,9 +273,19 @@ class Ant {
         const possibilities = this.getMovePossibility();
 
         if (possibilities.length >= 0) {
-            return this.moveToThisCase(
-                possibilities[Math.floor(Math.random() * possibilities.length)]
-            );
+            const food = possibilities.filter(theCase => theCase.type === CASE_TYPE.food);
+
+
+            if (food && food.length !== 0) {
+                return this.moveToThisCase(
+                    food[0]
+                );
+            }
+            else {
+                return this.moveToThisCase(
+                    possibilities[Math.floor(Math.random() * possibilities.length)]
+                );
+            }
         }
     }
 

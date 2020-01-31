@@ -111,8 +111,17 @@ class Map{
     }
 
     decrementFoodLeft() {
-        this.foodLeft -= 1;
-        this.mapFood.text(this.foodLeft);
+        if (this.foodLeft > 0) {
+            this.foodLeft -= 1;
+            this.mapFood.text(this.foodLeft);
+        }
+        else {
+            const test = this.cases.filter(c => c.type === CASE_TYPE.food);
+
+            if (test && test.length !== 0) {
+                test[0].setType(CASE_TYPE.empty);
+            }
+        }
     }
 
     initCases(){

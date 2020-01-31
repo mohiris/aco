@@ -16,6 +16,12 @@ class Case {
         this.pheromones = 0;
     }
 
+    setType(type) {
+        this.type = type;
+        this.entity.id = `case-${type}`;
+        this.entity.className = `case-${type}`;
+    }
+
     getPheromones() {
         return this.pheromones;
     }
