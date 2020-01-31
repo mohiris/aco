@@ -89,27 +89,39 @@ div[class^="case"]{
 }
 
 div.case-spawn{
-    background-color: rgb(106, 146, 106);
+    background: #78533C;
+    background-image: url("anthill.png");
+    background-position:  top;
+    background-size: cover;
 }
 
 div.case-obstacle{
-    background-color: rgb(46, 46, 46);
+    background: #78533C;
+    background-image: url("bush.png");
+    background-position:  top;
+    background-size: cover;
 }
 
 
 div.case-food{
-    background-color: brown;
+    background: #78533C;
+    background-image: url("mango.png");
+    background-position: center;
+    background-size: cover;
 }
 
 div.case-empty{
-    background-color: rgb(235, 235, 235);
+    background-image: url("sand.png");
 }
 
 span{
     position: absolute;
     width: 5px;
     height: 5px;
-    background-color: rgb(0, 140, 255);
+    background-image: url("ant.png");
+    background-color: blueviolet;
+    background-position: center;
+    background-size: cover;
 }
 
 .plot {
