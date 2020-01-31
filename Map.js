@@ -1,22 +1,38 @@
 $(document).ready(function(){
 
-    var height = $("#mHeight");
-    var width = $("#mWidth");
+    var height;
+    var width;
     var el = $("#map");
 
     var mapFood = $('#map-food');
 
     new Map(10, 10, el, mapFood);
 
-    $(".hValue").innerHtml = height.value;
-    $(".wValue").innerHtml = width.value;
-    
-    $("#mHeight").change(function(){
-        $(".hValue").innerHtml = this.value;
+    $('#start').click(function(){
+        height = $("#mHeight").val();
+        width = $("#mWidth").val();
+
+        new Map(width, height, el);
     });
 
-    $("#mWidth").change(function(){
-        $(".wValue").innerHtml = this.value;
+    $(function() {
+        $('#mHeight').next().text('10'); // Valeur par défaut
+        $('#mHeight').on('input', function() {
+            var $set = $(this).val();
+            $(this).next().text($set);
+        });
+    });
+
+    $('#reload').click(function(){
+        document.location.reload(true);
+    });
+
+    $(function() {
+        $('#mWidth').next().text('10'); // Valeur par défaut
+        $('#mWidth').on('input', function() {
+            var $set = $(this).val();
+            $(this).next().text($set);
+        });
     });
 
 });
