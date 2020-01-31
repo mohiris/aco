@@ -1,5 +1,5 @@
 class Anthill {
-    constructor(map, cell, numbers = 100) {
+    constructor(map, cell, numbers = 1) {
         this.map = map;
         this.ants = [];
         this.case = cell;

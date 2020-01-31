@@ -83,7 +83,6 @@ class Map{
             }); 
 
             line.forEach((c, key)=> {
-                console.log(key, key1)
                 if (c.y === 0) {
                     this.createCase('obstacle')
                 }
