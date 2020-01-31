@@ -68,7 +68,7 @@ class Map{
     }
 
     render() {
-        this.cases.forEach((line, key) => {
+        this.cases.forEach((line, key1) => {
             line.forEach(c => {
                 if (c.x === 0) {
                     this.createCase('obstacle')
@@ -82,7 +82,8 @@ class Map{
 
             }); 
 
-            line.forEach(c => {
+            line.forEach((c, key)=> {
+                console.log(key, key1)
                 if (c.y === 0) {
                     this.createCase('obstacle')
                 }
