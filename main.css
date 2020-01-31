@@ -106,3 +106,15 @@ span{
     visibility: hidden;
     background-color: rgb(53, 46, 11);
 }
+
+.pheromones-s {
+    background-color: aqua;
+}
+
+.pheromones-m {
+    background-color: blueviolet;
+}
+
+.pheromones-l {
+    background-color: cadetblue;
+}

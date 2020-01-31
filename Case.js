@@ -13,6 +13,35 @@ class Case {
         this.y = y;
         this.entity = null;
         this.plot = undefined;
+        this.pheromones = 0;
+    }
+
+    getPheromones() {
+        return this.pheromones;
+    }
+
+    setPheromones(pheromones) {
+        this.pheromones = pheromones;
+        //let stade = '';
+
+        // if (this.type === CASE_TYPE.food) {
+        //     return;
+        // }
+
+        // if (this.pheromones >= 1) {
+        //     stade = 's';
+        // }
+
+        // if (this.pheromones >= 6) {
+        //     stade = 'm';
+        // }
+
+
+        // if (this.pheromones >= 8) {
+        //     stade = 'l';
+        // }
+
+        // this.entity.className = `case-${this.type} pheromones-${stade}`;
     }
 
     setEntity(entity) {
